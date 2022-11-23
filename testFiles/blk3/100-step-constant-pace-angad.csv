@@ -1,6 +1,3 @@
-@ HyperIMU - ianovir
-@ Date:Tue Nov 15 12:48:14 PST 2022, Sampling Rate:100ms
-
 lsm6dsr_accelerometer.x,lsm6dsr_accelerometer.y,lsm6dsr_accelerometer.z,lsm6dsr_gyroscope.x,lsm6dsr_gyroscope.y,lsm6dsr_gyroscope.z
 0.08075777,4.026522,8.075776,-0.722785,-0.22326468,-0.12659809
 -0.061615184,3.7633119,9.393025,-0.30007872,0.41797224,-0.05222744
