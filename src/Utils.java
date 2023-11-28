@@ -60,8 +60,37 @@ public class Utils {
 	}
 
 	public static List<Double> applyBasicMedianFilter(List<Double> magnitudes) {
-		Arrays.sort(magnitudes.toArray());
-		return magnitudes.subList(magnitudes.size() / 2, magnitudes.size());
+		List<Double> filteredMagnitudes = new ArrayList<Double>();
+
+		double medianPeakDifference = getMedianPeakDifference(magnitudes);
+
+		for (int i = 0; i < magnitudes.size(); i++) {
+			if (i == 0 || i == magnitudes.size() - 1) {
+				filteredMagnitudes.add(magnitudes.get(i));
+			} else if (ReadStepsData.isPeak(magnitudes, i, medianPeakDifference)
+					|| ReadStepsData.isValley(magnitudes, i, medianPeakDifference)) {
+				filteredMagnitudes.add(magnitudes.get(i));
+			} else {
+				filteredMagnitudes.add((magnitudes.get(i - 1) + magnitudes.get(i) + magnitudes.get(i + 1)) / 3);
+			}
+		}
+
+		return filteredMagnitudes;
+	}
+
+	private static double getMedianPeakDifference(List<Double> magnitudes) {
+		List<Double> peakDifferences = new ArrayList<Double>();
+		for (int i = 1; i < magnitudes.size() - 1; i++) {
+			if (ReadStepsData.isPeak(magnitudes, i, 0) || ReadStepsData.isValley(magnitudes, i, 0)) {
+				peakDifferences.add(Math.abs(magnitudes.get(i) - magnitudes.get(i - 1)));
+			}
+		}
+		return getMedian(peakDifferences);
+	}
+
+	private static double getMedian(List<Double> peakDifferences) {
+		peakDifferences.sort((a, b) -> a.compareTo(b));
+		return peakDifferences.get(peakDifferences.size() / 2);
 	}
 
 	public static List<Double> applyMovingAverage(List<Double> magnitudes, int spread) {

@@ -25,11 +25,11 @@ public class ReadStepsData {
 
 		outputStr += "Length of data before filtering: " + magnitudes.size() + "\n";
 
-		// magnitudes = CSVDataUtils.applyBasicMedianFilter(magnitudes);
-		// outputStr += "Length of data after median filter: " + magnitudes.size() +
-		// "\n";
+		magnitudes = Utils.applyBasicMedianFilter(magnitudes);
+		outputStr += "Length of data after median filter: " + magnitudes.size() +
+				"\n";
 
-		magnitudes = Utils.applyMovingAverage(magnitudes, 5);
+		magnitudes = Utils.applyMovingAverage(magnitudes, 20);
 		outputStr += "Number of steps after moving average: " + calculateSteps(magnitudes, threshold) + "\n";
 
 		plotData(magnitudes, threshold);

@@ -1,5 +1,5 @@
 Threshold: 0.1
 Length of data before filtering: 6971
+Length of data after median filter: 6971
 Number of steps after moving average: 0
-Number of steps after close peak filter: 99
 
