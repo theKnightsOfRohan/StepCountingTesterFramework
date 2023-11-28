@@ -8,7 +8,7 @@ import Plot.ScatterPlot;
 
 public class ReadStepsData {
 	public static void main(String[] args) {
-		processData("testFiles/blk3/100-step-constant-pace - renee.csv", 0);
+		processData("testFiles/blk3/100-step-constant-pace-nathan.csv", 0);
 	}
 
 	public static void processData(String filePath, double threshold) {
@@ -19,9 +19,9 @@ public class ReadStepsData {
 
 		HashMap<String, List<Double>> data = Utils.parseCSVString(dataAsStrings);
 
-		List<Double> magnitudes = Utils.getMagnitudes(data.get("accelerometer.x"),
-				data.get("accelerometer.y"),
-				data.get("accelerometer.z"));
+		List<Double> magnitudes = Utils.getMagnitudes(data.get("lsm6dso_accelerometer.x"),
+				data.get("lsm6dso_accelerometer.y"),
+				data.get("lsm6dso_accelerometer.z"));
 
 		outputStr += "Length of data before filtering: " + magnitudes.size() + "\n";
 
@@ -31,6 +31,12 @@ public class ReadStepsData {
 
 		magnitudes = Utils.applyMovingAverage(magnitudes, 5);
 		outputStr += "Number of steps after moving average: " + calculateSteps(magnitudes, threshold) + "\n";
+
+		plotData(magnitudes, threshold);
+
+		// magnitudes = Utils.applyClosePeakFilter(magnitudes, 5);
+		outputStr += "Number of steps after close peak filter: " + calculateSteps(magnitudes, threshold) + "\n";
+
 		Utils.writeToFile(ouputPath, outputStr);
 
 		plotData(magnitudes, threshold);
@@ -74,7 +80,7 @@ public class ReadStepsData {
 		window.show();
 	}
 
-	private static boolean isPeak(List<Double> magnitudes, int index, double threshold) {
+	static boolean isPeak(List<Double> magnitudes, int index, double threshold) {
 		try {
 			return magnitudes.get(index) - magnitudes.get(index - 1) > threshold
 					&& magnitudes.get(index) - magnitudes.get(index + 1) > threshold;
@@ -83,7 +89,7 @@ public class ReadStepsData {
 		}
 	}
 
-	private static boolean isValley(List<Double> magnitudes, int index, double threshold) {
+	static boolean isValley(List<Double> magnitudes, int index, double threshold) {
 		try {
 			return magnitudes.get(index - 1) - magnitudes.get(index) > threshold
 					&& magnitudes.get(index + 1) - magnitudes.get(index) > threshold;
