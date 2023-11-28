@@ -1,4 +1,3 @@
-import Utils.FileIO;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Arrays;
@@ -15,14 +14,14 @@ public class ReadStepsData {
 	}
 
 	public static void processData(String filePath, double threshold) {
-		String ouputPath = CSVDataUtils.getOutputPath(filePath);
+		String ouputPath = Utils.getOutputPath(filePath);
 		String outputStr = "Threshold: " + threshold + "\n";
 
-		HashMap<String, List<String>> dataAsStrings = CSVDataUtils.readCSVFileAsMap(filePath);
+		HashMap<String, List<String>> dataAsStrings = Utils.readCSVFileAsMap(filePath);
 
-		HashMap<String, List<Double>> data = CSVDataUtils.parseCSVString(dataAsStrings);
+		HashMap<String, List<Double>> data = Utils.parseCSVString(dataAsStrings);
 
-		List<Double> magnitudes = CSVDataUtils.getMagnitudes(data.get("BMI160_accelerometer.x"),
+		List<Double> magnitudes = Utils.getMagnitudes(data.get("BMI160_accelerometer.x"),
 				data.get("BMI160_accelerometer.y"),
 				data.get("BMI160_accelerometer.z"));
 
@@ -32,9 +31,9 @@ public class ReadStepsData {
 		// outputStr += "Length of data after median filter: " + magnitudes.size() +
 		// "\n";
 
-		magnitudes = CSVDataUtils.applyMovingAverage(magnitudes, 5);
+		magnitudes = Utils.applyMovingAverage(magnitudes, 5);
 		outputStr += "Number of steps after moving average: " + calculateSteps(magnitudes, threshold) + "\n";
-		FileIO.writeToFile(ouputPath, outputStr);
+		Utils.writeToFile(ouputPath, outputStr);
 
 		plotData(magnitudes, threshold);
 	}

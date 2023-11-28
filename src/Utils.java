@@ -5,8 +5,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.PrintWriter;
 
-public class CSVDataUtils {
+public class Utils {
 	public static HashMap<String, List<Double>> parseCSVString(HashMap<String, List<String>> dataAsStrings) {
 		HashMap<String, List<Double>> data = new HashMap<String, List<Double>>();
 		for (String key : dataAsStrings.keySet()) {
@@ -83,5 +84,51 @@ public class CSVDataUtils {
 		String fileName = pathParts.get(pathParts.size() - 1);
 		pathParts.set(pathParts.size() - 1, fileName.substring(0, fileName.length() - 4) + "_output.txt");
 		return String.join("/", pathParts);
+	}
+
+	public static void writeToFile(String filePath, String data) {
+		try (PrintWriter writer = new PrintWriter(filePath)) {
+			writer.println(data);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void writeToFile(String filePath, List<Object> data) {
+		try (PrintWriter writer = new PrintWriter(filePath)) {
+			for (Object line : data) {
+				writer.println(line.toString());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static List<String> readFileByLine(String filePath) {
+		List<String> lines = new java.util.ArrayList<String>();
+		try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+			String line = reader.readLine();
+			while (line != null) {
+				lines.add(line);
+				line = reader.readLine();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return lines;
+	}
+
+	public static String readFile(String filePath) {
+		String data = "";
+		try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+			String line = reader.readLine();
+			while (line != null) {
+				data += line + "\n";
+				line = reader.readLine();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return data;
 	}
 }
