@@ -19,9 +19,9 @@ public class ReadStepsData {
 
 		HashMap<String, List<Double>> data = Utils.parseCSVString(dataAsStrings);
 
-		List<Double> magnitudes = Utils.getMagnitudes(data.get("BMI160_accelerometer.x"),
-				data.get("BMI160_accelerometer.y"),
-				data.get("BMI160_accelerometer.z"));
+		List<Double> magnitudes = Utils.getMagnitudes(data.get("accelerometer.x"),
+				data.get("accelerometer.y"),
+				data.get("accelerometer.z"));
 
 		outputStr += "Length of data before filtering: " + magnitudes.size() + "\n";
 
