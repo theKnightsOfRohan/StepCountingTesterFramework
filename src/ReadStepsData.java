@@ -30,7 +30,7 @@ public class ReadStepsData {
 		outputStr += "Length of data after median filter: " + magnitudes.size() +
 				"\n";
 
-		magnitudes = Utils.applyMovingAverage(magnitudes, 20);
+		magnitudes = Utils.applyMovingAverage(magnitudes, 10);
 		outputStr += "Number of steps after moving average: " + calculateSteps(magnitudes, threshold) + "\n";
 
 		plotData(magnitudes, threshold);
