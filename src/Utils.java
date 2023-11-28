@@ -1,4 +1,3 @@
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
@@ -107,13 +106,13 @@ public class Utils {
 		return filteredMagnitudes;
 	}
 
-    public static List<Double> applyClosePeakFilter(List<Double> magnitudes, int spacing) {
-        List<Double> filteredMagnitudes = new ArrayList<Double>();
+	public static List<Double> applyClosePeakFilter(List<Double> magnitudes, int spacing) {
+		List<Double> filteredMagnitudes = new ArrayList<Double>();
 		List<Integer> IndexOfpeaksAndValleys = getIndexOfPeaksAndValleys(magnitudes);
 
-		for (int i = 0; i < IndexOfpeaksAndValleys.size()-1; i++) {
-			// Average between points. 
-			if (IndexOfpeaksAndValleys.get(i) - IndexOfpeaksAndValleys.get(i+1) <= spacing) {
+		for (int i = 0; i < IndexOfpeaksAndValleys.size() - 1; i++) {
+			// Average between points.
+			if (IndexOfpeaksAndValleys.get(i) - IndexOfpeaksAndValleys.get(i + 1) <= spacing) {
 				filteredMagnitudes.add(magnitudes.get(IndexOfpeaksAndValleys.get(i)));
 				i++;
 				continue;
@@ -122,12 +121,12 @@ public class Utils {
 		}
 
 		return filteredMagnitudes;
-    }
+	}
 
 	private static List<Integer> getIndexOfPeaksAndValleys(List<Double> magnitudes) {
 		List<Integer> returnList = new ArrayList<Integer>();
 
-		for (int i = 1; i < magnitudes.size()-1; i++) {
+		for (int i = 1; i < magnitudes.size() - 1; i++) {
 			if (ReadStepsData.isPeak(magnitudes, i, 0) || ReadStepsData.isValley(magnitudes, i, 0)) {
 				returnList.add(i);
 			}
