@@ -8,9 +8,7 @@ import Plot.ScatterPlot;
 
 public class ReadStepsData {
 	public static void main(String[] args) {
-		processData("src/ProblemSets/W12/Steps_Data/1-200-step-regular.csv", 0);
-		processData("src/ProblemSets/W12/Steps_Data/2-200-step-variable.csv", 0);
-		processData("src/ProblemSets/W12/Steps_Data/3-200-step-jacket.csv", 0);
+		processData("testFiles/blk3/100-step-constant-pace - renee.csv", 0);
 	}
 
 	public static void processData(String filePath, double threshold) {
