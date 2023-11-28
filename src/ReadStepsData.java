@@ -8,7 +8,7 @@ import Plot.ScatterPlot;
 
 public class ReadStepsData {
 	public static void main(String[] args) {
-		processData("testFiles/blk3/100-step-constant-pace-nathan.csv", 0);
+		processData("testFiles/blk3/100-step-constant-pace-angad.csv", 0);
 	}
 
 	public static void processData(String filePath, double threshold) {
@@ -19,13 +19,13 @@ public class ReadStepsData {
 
 		HashMap<String, List<Double>> data = Utils.parseCSVString(dataAsStrings);
 
-		List<Double> magnitudes = Utils.getMagnitudes(data.get("lsm6dso_accelerometer.x"),
-				data.get("lsm6dso_accelerometer.y"),
-				data.get("lsm6dso_accelerometer.z"));
+		List<Double> magnitudes = Utils.getMagnitudes(data.get("lsm6dsr_accelerometer.x"),
+				data.get("lsm6dsr_accelerometer.y"),
+				data.get("lsm6dsr_accelerometer.z"));
 
 		outputStr += "Length of data before filtering: " + magnitudes.size() + "\n";
 
-		magnitudes = Utils.applyBasicMedianFilter(magnitudes);
+		// magnitudes = Utils.applyBasicMedianFilter(magnitudes);
 		outputStr += "Length of data after median filter: " + magnitudes.size() +
 				"\n";
 
@@ -33,6 +33,9 @@ public class ReadStepsData {
 		outputStr += "Number of steps after moving average: " + calculateSteps(magnitudes, threshold) + "\n";
 
 		plotData(magnitudes, threshold);
+
+		magnitudes = Utils.applyTheCurve(magnitudes, 0.955);
+		outputStr += "Number of steps after the curve: " + magnitudes.size() + "\n";
 
 		// magnitudes = Utils.applyClosePeakFilter(magnitudes, 5);
 		outputStr += "Number of steps after close peak filter: " + calculateSteps(magnitudes, threshold) + "\n";
