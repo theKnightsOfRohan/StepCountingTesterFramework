@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.Arrays;
 import org.apache.commons.math3.fitting.HarmonicCurveFitter;
 import org.apache.commons.math3.fitting.WeightedObservedPoints;
+import org.apache.commons.math3.transform.FastFourierTransformer;
 import Plot.PlotWindow;
 import Plot.ScatterPlot;
 
