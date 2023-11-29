@@ -1,5 +1,8 @@
+package Main;
+
 import java.util.HashMap;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Arrays;
 import org.apache.commons.math3.fitting.HarmonicCurveFitter;
 import org.apache.commons.math3.fitting.WeightedObservedPoints;
@@ -7,9 +10,48 @@ import org.apache.commons.math3.transform.FastFourierTransformer;
 import Plot.PlotWindow;
 import Plot.ScatterPlot;
 
-public class ReadStepsData {
+public class ReadStepsData implements StepCounter {
 	public static void main(String[] args) {
-		processData("testFiles/blk3/100-step-constant-pace-angad.csv", 0);
+	}
+
+	public ReadStepsData() {
+
+	}
+
+	public int countSteps(ArrayList<Double> xAcc, ArrayList<Double> yAcc, ArrayList<Double> zAcc,
+			ArrayList<Double> xGyro, ArrayList<Double> yGyro, ArrayList<Double> zGyro) {
+
+		int threshold = 0;
+		List<Double> magnitudes = Utils.getMagnitudes(xAcc, yAcc, zAcc);
+
+		// magnitudes = Utils.applyBasicMedianFilter(magnitudes);
+
+		magnitudes = Utils.applyMovingAverage(magnitudes, 10);
+
+		magnitudes = Utils.applyTheCurve(magnitudes, 0.955);
+
+		// magnitudes = Utils.applyClosePeakFilter(magnitudes, 5);
+		return calculateSteps(magnitudes, threshold);
+	}
+
+	public int countSteps(String csvFileText) {
+		String[] lines = csvFileText.split("\n");
+		String[][] data = new String[lines.length][];
+		for (int i = 0; i < lines.length; i++) {
+			data[i] = lines[i].split(",");
+		}
+
+		ArrayList<Double> xAcc = new ArrayList<Double>();
+		ArrayList<Double> yAcc = new ArrayList<Double>();
+		ArrayList<Double> zAcc = new ArrayList<Double>();
+
+		for (int i = 1; i < data.length; i++) {
+			xAcc.add(Double.parseDouble(data[i][0]));
+			yAcc.add(Double.parseDouble(data[i][1]));
+			zAcc.add(Double.parseDouble(data[i][2]));
+		}
+
+		return countSteps(xAcc, yAcc, zAcc, null, null, null);
 	}
 
 	public static void processData(String filePath, double threshold) {
@@ -44,6 +86,7 @@ public class ReadStepsData {
 		Utils.writeToFile(ouputPath, outputStr);
 
 		plotData(magnitudes, threshold);
+
 	}
 
 	private static int calculateSteps(List<Double> magnitudes, double threshold) {
@@ -81,7 +124,7 @@ public class ReadStepsData {
 		}
 
 		PlotWindow window = PlotWindow.getWindowFor(plt, 1200, 800);
-		window.show();
+		// window.show();
 	}
 
 	static boolean isPeak(List<Double> magnitudes, int index, double threshold) {

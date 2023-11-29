@@ -7,12 +7,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+import Main.ReadStepsData;
+import Main.StepCounter;
+
 public class MainTester {
     private static final String TEST_FILE_FOLDER = "testFiles/blk3";
 
     public static void main(String[] args) {
-        // StepCounter counter = new Pedometer(); /* instantiate your step counter here
-        // */
+        StepCounter counter = new ReadStepsData();
 
         ArrayList<Path> paths = getPaths();
 

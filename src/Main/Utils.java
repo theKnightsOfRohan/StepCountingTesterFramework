@@ -1,3 +1,5 @@
+package Main;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
@@ -189,8 +191,8 @@ public class Utils {
 		return data;
 	}
 
-    public static List<Double> applyTheCurve(List<Double> magnitudes, double d) {
-        List<Double> returnArr = new ArrayList<Double>();
+	public static List<Double> applyTheCurve(List<Double> magnitudes, double d) {
+		List<Double> returnArr = new ArrayList<Double>();
 		Double[] test = new Double[magnitudes.size()];
 		Double[] toArr = magnitudes.toArray(test);
 
@@ -199,5 +201,5 @@ public class Utils {
 		Double[] test2 = Arrays.copyOfRange(toArr, (int) (d * toArr.length), toArr.length);
 
 		return Arrays.asList(test2);
-    }
+	}
 }
