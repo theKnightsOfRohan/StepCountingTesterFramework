@@ -23,7 +23,7 @@ public class MainTester {
         int count = 0;
         for (Path path : paths) {
             FileData data = processPath(path);
-
+            
             int prediction = counter.countSteps(data.text);
             count++;
 

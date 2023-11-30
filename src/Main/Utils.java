@@ -2,6 +2,9 @@ package Main;
 
 import java.util.HashMap;
 import java.util.List;
+
+import org.apache.commons.math3.genetics.ListPopulation;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.io.BufferedReader;
@@ -100,7 +103,7 @@ public class Utils {
 			double sum = 0;
 			for (int j = i - spread; j < i + spread; j++) {
 				if (j >= 0 && j < magnitudes.size()) {
-					sum += magnitudes.get(j);
+					sum += magnitudes.get(j) * (spread - Math.abs((i-j)))/(2*spread);
 				}
 			}
 			filteredMagnitudes.add(sum / (spread * 2 + 1));
@@ -202,4 +205,13 @@ public class Utils {
 
 		return Arrays.asList(test2);
 	}
+
+	public static void applyWeightedAverage (double weight1, double weight2, double weight3, List<Double> a) {
+        for (int i = 1; i < a.size()-1; i++) {
+            double w1 = weight1 * a.get(i-1);
+            double w2 = weight2 * a.get(i);
+            double w3 = weight3 * a.get(i+1);
+            a.set(i, (w1 + w2 + w3));
+        }
+    }
 }

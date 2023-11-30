@@ -12,6 +12,10 @@ import Plot.ScatterPlot;
 
 public class ReadStepsData implements StepCounter {
 	public static void main(String[] args) {
+		ReadStepsData bruh = new ReadStepsData();
+
+		bruh.countSteps(Utils.readFile("testFiles/blk3/kevin-100-steps-400hz.csv.xlsx - 100 a and g 1.csv"));
+
 	}
 
 	public ReadStepsData() {
@@ -26,11 +30,14 @@ public class ReadStepsData implements StepCounter {
 
 		// magnitudes = Utils.applyBasicMedianFilter(magnitudes);
 
-		magnitudes = Utils.applyMovingAverage(magnitudes, 10);
+		for (int i = 0; i < 850; i++) {
+			Utils.applyWeightedAverage(1/4.0, 1/2.0, 1/4.0, magnitudes);
+		}
+		
+		// plotData(magnitudes, threshold);
 
-		magnitudes = Utils.applyTheCurve(magnitudes, 0.955);
+		System.out.println(calculateSteps(magnitudes, threshold));
 
-		// magnitudes = Utils.applyClosePeakFilter(magnitudes, 5);
 		return calculateSteps(magnitudes, threshold);
 	}
 
@@ -124,7 +131,7 @@ public class ReadStepsData implements StepCounter {
 		}
 
 		PlotWindow window = PlotWindow.getWindowFor(plt, 1200, 800);
-		// window.show();
+		window.show();
 	}
 
 	static boolean isPeak(List<Double> magnitudes, int index, double threshold) {
