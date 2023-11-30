@@ -57,8 +57,11 @@ public class MainTester {
         return new FileData(text, path.toString(), numSteps);
     }
 
-    private static int extractNumSteps(Path path) {
-        String filename = path.getFileName().toString();
+    public static int extractNumSteps(Path path) {
+        String filename = path.getFileName().toString().toLowerCase();
+        if (filename.contains("step")) {
+            filename = filename.substring(0, filename.indexOf("step"));
+        }
         filename = filename.replaceAll("[^\\d]", "");
         int steps;
         try {
