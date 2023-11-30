@@ -25,13 +25,13 @@ public class ReadStepsData implements StepCounter {
 	public int countSteps(ArrayList<Double> xAcc, ArrayList<Double> yAcc, ArrayList<Double> zAcc,
 			ArrayList<Double> xGyro, ArrayList<Double> yGyro, ArrayList<Double> zGyro) {
 
-		int threshold = 0;
+		double threshold = 0;
 		List<Double> magnitudes = Utils.getMagnitudes(xAcc, yAcc, zAcc);
 
 		// magnitudes = Utils.applyBasicMedianFilter(magnitudes);
 
-		for (int i = 0; i < 1600; i++) {
-			Utils.applyWeightedAverage(1/6.0, 2/3.0, 1/6.0, magnitudes);
+		for (int i = 0; i < 900; i++) {
+			Utils.applyWeightedAverage(1/4.0, 1/2.0, 1/4.0, magnitudes);
 		}
 		
 		// plotData(magnitudes, threshold);
