@@ -14,7 +14,7 @@ public class ReadStepsData implements StepCounter {
 	public static void main(String[] args) {
 		ReadStepsData bruh = new ReadStepsData();
 
-		bruh.countSteps(Utils.readFile("testFiles/blk3/kevin-100-steps-400hz.csv.xlsx - 100 a and g 1.csv"));
+		bruh.countSteps(Utils.readFile("testFiles/blk3/Walking 300 Steps Constant Speed Data - itai.csv"));
 
 	}
 
@@ -30,8 +30,8 @@ public class ReadStepsData implements StepCounter {
 
 		// magnitudes = Utils.applyBasicMedianFilter(magnitudes);
 
-		for (int i = 0; i < 850; i++) {
-			Utils.applyWeightedAverage(1/4.0, 1/2.0, 1/4.0, magnitudes);
+		for (int i = 0; i < 1600; i++) {
+			Utils.applyWeightedAverage(1/6.0, 2/3.0, 1/6.0, magnitudes);
 		}
 		
 		// plotData(magnitudes, threshold);

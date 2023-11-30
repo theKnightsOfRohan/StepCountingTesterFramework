@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import Main.ReadStepsData;
 import Main.StepCounter;
 
-public class MainTester {
+public class MainTesterBetter {
     private static final String TEST_FILE_FOLDER = "testFiles/blk3";
 
     public static void main(String[] args) {
