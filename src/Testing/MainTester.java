@@ -30,7 +30,7 @@ public class MainTester {
             int error = data.correctNumberOfSteps - prediction;
             totalError += (error * error);
             System.out
-                    .println(/*data.filePath + "\t\t" + */prediction + "\t\t" + data.correctNumberOfSteps + "\t\t" + error);
+                    .println(/*data.filePath + "\t\t" + */prediction/* + "\t\t" + data.correctNumberOfSteps*//* + "\t\t" + error*/);
         }
         System.out.println();
         System.out.println("Mean squared error: " + (totalError / count));

@@ -14,7 +14,7 @@ public class ReadStepsData implements StepCounter {
 	public static void main(String[] args) {
 		ReadStepsData bruh = new ReadStepsData();
 
-		bruh.countSteps(Utils.readFile("testFiles/blk3/Walking 300 Steps Constant Speed Data - itai.csv"));
+		bruh.countSteps(Utils.readFile("testFiles/blk3/100-step-constant-pace-angad.csv"));
 
 	}
 
@@ -30,13 +30,13 @@ public class ReadStepsData implements StepCounter {
 
 		// magnitudes = Utils.applyBasicMedianFilter(magnitudes);
 
-		for (int i = 0; i < 900; i++) {
-			Utils.applyWeightedAverage(1/4.0, 1/2.0, 1/4.0, magnitudes);
-		}
+		// for (int i = 0; i < 800; i++) {
+		// 	Utils.applyWeightedAverage(1/4.0, 1/2.0, 1/4.0, magnitudes);
+		// }
 		
 		// plotData(magnitudes, threshold);
 
-		System.out.println(calculateSteps(magnitudes, threshold));
+		// System.out.println(calculateSteps(magnitudes, threshold));
 
 		return calculateSteps(magnitudes, threshold);
 	}
@@ -126,8 +126,8 @@ public class ReadStepsData implements StepCounter {
 		System.out.println(params[0] + " * sin(" + params[1] + " * x + " + params[2] + ")");
 
 		for (int i = 0; i < data.size(); i++) {
-			plt.plot(2, i, params[0] * Math.sin(params[1] * i + params[2]) + 10).strokeColor("blue").strokeWeight(2)
-					.style("-");
+			// plt.plot(2, i, params[0] * Math.sin(params[1] * i + params[2]) + 10).strokeColor("blue").strokeWeight(2)
+			// 		.style("-");
 		}
 
 		PlotWindow window = PlotWindow.getWindowFor(plt, 1200, 800);
